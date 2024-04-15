@@ -1,0 +1,149 @@
+<div class="col-12 md:col-6">
+
+
+    <div class="card p-fluid" *ngIf="envoyer">
+        <h4>
+            Le formulaire a bien été envoyé. Merci de visiter nos pages.
+        </h4>
+    
+        <div class="social-links-container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/jribi.optic?locale=fr_FR" target="_blank" class="social-link"><i class="pi pi-facebook" style="font-size: 2rem; margin-right: 1rem;"></i></a>
+                <a href="https://www.instagram.com/jribi_optic_tunis/" target="_blank" class="social-link"><i class="pi pi-instagram" style="font-size: 2rem;"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="card p-fluid" *ngIf="this.dejaremplir">
+        <h4>
+           Vous avez déja remplir ce formulaire.<br>Merci de nous visiter une autre fois.
+        </h4>
+        <div class="social-links-container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/jribi.optic?locale=fr_FR" target="_blank" class="social-link"><i class="pi pi-facebook" style="font-size: 2rem; margin-right: 1rem;"></i></a>
+                <a href="https://www.instagram.com/jribi_optic_tunis/" target="_blank" class="social-link"><i class="pi pi-instagram" style="font-size: 2rem;"></i></a>
+            </div>
+        </div>
+    </div>    
+    <div class="card p-fluid" *ngIf="this.remplir">
+        <h4>
+            Cher client, nous préparons l'ISO merci de nous aider à nous améliorer en remplissant correctement ce formulaire.
+        </h4>
+    </div>
+    <div class="card p-fluid" *ngIf="this.remplir">
+
+        <p-divider>
+            <b>Informations Client</b>
+        </p-divider>
+
+        <div class="field">
+            <label htmlFor="name1">Nom</label>
+            <input pInputText id="name1" type="text" [(ngModel)]="this.fiche[0].nom"  />
+        </div>
+        <div class="field">
+            <label htmlFor="email1">Prenom</label>
+            <input pInputText id="email1" type="text" [(ngModel)]="this.fiche[0].prenom"  />
+        </div>
+        <div class="field">
+            <label htmlFor="age1">Date Naissance</label>
+            <input pInputText id="age1" type="date" [(ngModel)]="this.fiche[0].dateNaissance"  />
+        </div>
+        <div class="field">
+            <label htmlFor="age1">Pays</label>
+            <p-dropdown [options]="pays" [(ngModel)]="this.fiche[0].pays.codePays" placeholder="" [showClear]="true" optionLabel="libelle"></p-dropdown>			
+        </div>
+        <div class="field">
+            <label htmlFor="age1">Ville</label>
+			<p-dropdown [options]="villes" [(ngModel)]="this.fiche[0].ville.codeVille" placeholder="" [showClear]="true" optionLabel="libelle"></p-dropdown>
+        </div>
+        <div class="field">
+            <label htmlFor="age1">Adresse</label>
+            <input pInputText id="age1" type="text" [(ngModel)]="this.fiche[0].adresse"  />
+        </div>
+
+        <div class="field" [ngClass]="{'error': tel1Error}">
+            <label htmlFor="age1">Numéro Téléphone</label>
+            <input pInputText id="age1" type="text" [(ngModel)]="this.fiche[0].tel1" required="true" />
+            <small *ngIf="tel1Error" class="error-message" style="color: red;">Numéro Téléphone est obligatoire</small>
+        </div>
+
+        <div class="field" [ngClass]="{'error': mailError}">
+            <label htmlFor="age1">Email</label>
+            <input pInputText id="age1" type="text" [(ngModel)]="this.fiche[0].mail"  required="true"/>
+            <small *ngIf="mailError" class="error-message" style="color: red;">Email est obligatoire</small>
+        </div>
+
+        
+    </div>
+    <div class="card p-fluid" *ngIf="this.remplir">
+        
+        <p-divider>
+            <b>Satisfaction Acceuil.</b>
+        </p-divider>
+        <p-radioButton name="groupname" value="100" label="Trés Satisfait(e)" [(ngModel)]="noteClient.satistfactionAccueil" ></p-radioButton><br>
+        <p-radioButton name="groupname" value="50" label="Neutre" [(ngModel)]="noteClient.satistfactionAccueil"  ></p-radioButton><br>
+        <p-radioButton name="groupname" value="0" label="Insatifait(e)" [(ngModel)]="noteClient.satistfactionAccueil" ></p-radioButton><br>
+
+
+        <p-divider>
+            <b>La qualité des conseils et des informations fournis par nous.</b>
+        </p-divider>
+        <p-radioButton name="groupname" value="100" label="Trés Satisfait(e)" [(ngModel)]="noteClient.qualiteConseil" ></p-radioButton><br>
+        <p-radioButton name="groupname" value="50" label="Neutre" [(ngModel)]="noteClient.qualiteConseil"  ></p-radioButton><br>
+        <p-radioButton name="groupname" value="0" label="Insatifait(e)" [(ngModel)]="noteClient.qualiteConseil"  ></p-radioButton><br>
+
+
+        <p-divider>
+            <b>Perception Global de la qualité des produits/solutions optiques.</b>
+        </p-divider>
+        <p-radioButton name="groupname" value="100" label="Trés Satisfaisante" [(ngModel)]="noteClient.qualiteProduit"   ></p-radioButton><br>
+        <p-radioButton name="groupname" value="50" label="Neutre" [(ngModel)]="noteClient.qualiteProduit"  ></p-radioButton><br>
+        <p-radioButton name="groupname" value="0" label="Insatifaisante" [(ngModel)]="noteClient.qualiteProduit"  ></p-radioButton><br>
+
+        <p-divider>
+            <b>Délai de livraison</b>
+        </p-divider>
+        <p-radioButton name="groupname" value="100" label="Rapide" [(ngModel)]="noteClient.delaiLivraison"  ></p-radioButton><br>
+        <p-radioButton name="groupname" value="50" label="Neutre" [(ngModel)]="noteClient.delaiLivraison"  ></p-radioButton><br>
+        <p-radioButton name="groupname" value="0" label="Lente" [(ngModel)]="noteClient.delaiLivraison" ></p-radioButton><br>
+
+        <p-divider>
+            <b>Recommenderiez-vous notre magasin?</b>
+        </p-divider>
+        <p-radioButton name="groupname" value="100" label="Sans hésitation" [(ngModel)]="noteClient.recommandation"  ></p-radioButton><br>
+        <p-radioButton name="groupname" value="50" label="Neutre" [(ngModel)]="noteClient.recommandation"  ></p-radioButton><br>
+        <p-radioButton name="groupname" value="0" label="Peu probable" [(ngModel)]="noteClient.recommandation"  ></p-radioButton><br>
+
+
+    </div>
+    <div class="card p-fluid" *ngIf="this.remplir">
+        <p-accordion>
+            <p-accordionTab header="Vos réclamations" [selected]="true" class="line-height-3 m-0">
+                <textarea rows="5" cols="30" placeholder="Your Message" pInputTextarea [(ngModel)]="noteClient.reclamation"  ></textarea>
+            </p-accordionTab>
+            <p-accordionTab header="Vos Suggestions" class="line-height-3 m-0">
+                <textarea rows="5" cols="30" placeholder="Your Message" pInputTextarea [(ngModel)]="noteClient.suggestion"  ></textarea>
+            </p-accordionTab>
+        </p-accordion>
+        <button pButton pRipple label="Envoyer" class="p-button-text footer enregistrer-button" (click)="save()" ></button>
+        <p-messages [value]="msgs"></p-messages>
+        <div class="alert alert-danger" role="alert" *ngIf="tel1Error">
+            This is a danger alert—check it out!
+        </div>
+        <br>
+        <div class="social-links-container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/jribi.optic?locale=fr_FR" target="_blank" class="social-link"><i class="pi pi-facebook" style="font-size: 2rem; margin-right: 1rem;"></i></a>
+                <a href="https://www.instagram.com/jribi_optic_tunis/" target="_blank" class="social-link"><i class="pi pi-instagram" style="font-size: 2rem;"></i></a>
+            </div>
+        </div>
+    </div>
+   
+</div>
+<style>
+    .social-links-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+</style>

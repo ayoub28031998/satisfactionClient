@@ -1,0 +1,481 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+			<p-toolbar styleClass="mb-2 gap-4">
+				<ng-template pTemplate="left">
+					<button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2" (click)="Ajouter()"></button>
+					<!-- <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger mr-2" (click)="deleteSelectedFournisseur()" [disabled]="!selectedFournisseur"></button>
+					<button pButton pRipple label="Modifier" icon="pi pi-plus" class="p-button p-button-secondary " (click)="onFournisseurSelect()" [disabled]="!selectedFournisseur"></button> -->
+
+				</ng-template>
+			</p-toolbar>
+            <!-- <p-table #dt1 [columns]="selectedColumns" [value]="fournisseur" [tableStyle]="{'min-width': '50rem'}"    styleClass="p-datatable-gridlines p-datatable-sm"
+				[tableStyle]="{ 'min-width': '50rem' }"
+				[scrollable]="true"
+				scrollHeight="400px"
+				[rows]="10"
+				[virtualScroll]="true"
+			  [virtualScrollItemSize]="46"
+			  [resizableColumns]="true"
+			  selectionMode="single" [(selection)]="selectedFournisseur"
+			  (onRowSelect)="onRowSelect($event)"
+			  >
+			  <ng-template pTemplate="caption">
+
+				<div class="flex align-center justify-between">
+					<p-multiSelect
+                     [options]="cols"
+                     [(ngModel)]="selectedColumns"
+                     optionLabel="header"
+                     selectedItemsLabel="{0} columns selected"
+                     defaultLabel="Choose Columns"
+                     class="mx-auto multi-select custom-multi-select"
+                     display="chip"
+                     style="width: 70%;"
+                    ></p-multiSelect>
+
+
+				  <button pButton label="Clear" class="p-button-rounded p-button-text mr-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+
+				  <div class="search-input">
+					<input
+					  pInputText
+					  type="text"
+					  [(ngModel)]="searchKeyword"
+					  (input)="dt1.filterGlobal(searchKeyword, 'contains')"
+					  placeholder="Search Keyword"/>
+				  </div>
+				</div>
+			  </ng-template>
+
+				<ng-template pTemplate="header" let-columns>
+					<tr>
+						<th pResizableColumn>code</th>
+						<th pResizableColumn *ngFor="let col of columns" [pSortableColumn]="col.field">
+							{{col.header}}
+							<p-sortIcon [field]="col.field"></p-sortIcon>
+						<p-columnFilter type="text" [field]="col.field" display="menu" [placeholder]="'Search by ' + col.header" ngDefaultControl></p-columnFilter>
+
+						</th>
+ 					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-fournisseur let-columns="columns">
+					<tr [pSelectableRow]="fournisseur">
+						<td>{{fournisseur.codeFournisseur}}</td>
+						<td *ngFor="let col of columns">
+							{{fournisseur[col.field]}}
+						</td>
+
+					</tr>
+				</ng-template>
+			</p-table> -->
+        </div>
+        <p-dialog [(visible)]="ArticleDialog" [style]="{width: '1250px', height: '1250px'}" [maximizable]="true" header="Article/{{mode}}" label="Show" [modal]="true" class="p-fluid">
+            <div class="card p-fluid">
+                <p-divider >
+                    <div class="inline-flex align-items-center">
+                        <i class="pi   mr-2"></i>
+                        <b>Mise à jour article</b>
+                    </div>
+                </p-divider>
+                <div class="col-12 md:col-12">
+                    <div class="p-fluid p-formgrid grid field">
+                            <div class="col-12 md:col-2">
+                                <span class="p-float-label">
+                                    <input pInputText id="code" style="height: 25px;" type="text" [(ngModel)]="article.codeArticle" >
+                                    <label for="code">Code Article</label>
+                                </span>
+                             </div>
+
+
+                                <div class="col-12 md:col-4">
+                                    <!-- <app-look-up-edit-article
+                                    [source]="'familleArticle'"
+                                    [title]="'Familles Article'"
+                                    [label]="'Familles Article'"
+                                     (sourceUpdated)="handleSourceUpdated($event)"
+                                    (articleUpdated)="handleArticleUpdated($event)"
+
+                                    ></app-look-up-edit-article> -->
+                                </div>
+                                <div class="col-12 md:col-4" >
+                                   <app-look-up-edit-article
+                                   [source]="'familleArticle'"
+                                   [title]="'Familles Article'"
+                                   [label]="'Familles Article'"
+                                   (sourceUpdated)="handleSourceUpdated($event)"
+                                   (articleUpdated)="handleArticleUpdated($event)"
+                                   ></app-look-up-edit-article>
+
+                                </div>
+                    </div>
+                    <div class="p-fluid p-formgrid grid field">
+                        <span style="height: 10px;"></span>
+                    </div>
+                    <div class="p-fluid p-formgrid grid field">
+                        <div class="col-12 md:col-10">
+                            <span class="p-float-label">
+                                <input pInputText id="raisonSociale" style="height: 25px;width:98%" type="text" [(ngModel)]="article.designation" >
+                                <label for="raisonSociale">Désignation Article</label>
+                            </span>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+            <p-tabView orientation="left">
+                <p-tabPanel  header="Informations" class="line-height-3 m-0">
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="col-12 md:col-2 ">
+                            <div class="card p-fluid">
+
+                                    <div class="field-checkbox">
+                                        <p-checkbox class="mr-1" name="group1" value="true" [(ngModel)]="article.actif" id="changementRaisonSociale" [binary]="true" ></p-checkbox>
+                                        <label class="mr-2" for="changementRaisonSociale">Actif</label>
+                                    </div>
+                                    <div class="field-checkbox">
+                                        <p-checkbox class="mr-1" name="group1" value="true" [(ngModel)]="article.stockable" id="changementRaisonSociale" [binary]="true" ></p-checkbox>
+                                        <label class="mr-2" for="changementRaisonSociale">Stockable</label>
+                                    </div>
+                                    <div class="field-checkbox">
+                                        <p-checkbox class="mr-1" name="group1" value="true" [(ngModel)]="article.fodec" id="changementRaisonSociale" [binary]="true" ></p-checkbox>
+                                        <label class="mr-2" for="changementRaisonSociale">Fodec</label>
+                                    </div>
+                                    <div class="p-fluid p-formgrid grid field">
+                                        <span style="height: 80px;"></span>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-4">
+                            <div class="card p-fluid">
+                                <div class="p-fluid p-formgrid grid field">
+                                    <div class="col-12 md:col-12">
+                                        <app-look-up-edit-article
+                                        [source]="'marqueArticle'"
+                                        [title]="'Marque Article'"
+                                        [label]="'Marque Article'"
+                                        [defaultMarqueArticle]="defaultMarque"
+                                        (sourceUpdated)="handleSourceUpdated($event)"
+                                        (articleUpdated)="handleArticleUpdated($event)"
+                                        >
+                                        </app-look-up-edit-article>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid grid field">
+                                    <span style="height: 10px;"></span>
+                                </div>
+
+                                <div class="p-fluid p-formgrid grid field">
+                                    <div class="col-12 md:col-12">
+                                        <app-look-up-edit-article
+                                        [source]="'typeArticle'"
+                                        [title]="'Type Article'"
+                                        [label]="'Type Article'"
+                                        (sourceUpdated)="handleSourceUpdated($event)"
+                                        (articleUpdated)="handleArticleUpdated($event)"
+                                        >
+                                        </app-look-up-edit-article>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid grid field">
+                                    <span style="height: 10px;"></span>
+                                </div>
+                                <div class="p-fluid p-formgrid grid field">
+                                    <div class="col-12 md:col-12">
+                                        <app-look-up-edit-article
+                                        [source]="'depotAchat'"
+                                        [title]="'Depôt Achat'"
+                                        [label]="'Depôt Achat'"
+                                        (sourceUpdated)="handleSourceUpdated($event)"
+                                        (articleUpdated)="handleArticleUpdated($event)"
+                                        >
+                                        </app-look-up-edit-article>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid grid field">
+                                    <span style="height: 10px;"></span>
+                                </div>
+                                <div class="p-fluid p-formgrid grid field">
+                                    <div class="col-12 md:col-12">
+                                        <app-look-up-edit-article
+                                        [source]="'unite'"
+                                        [title]="'Unité'"
+                                        [label]="'Unité'"
+                                        (sourceUpdated)="handleSourceUpdated($event)"
+                                        (articleUpdated)="handleArticleUpdated($event)"
+                                        >
+                                        </app-look-up-edit-article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-3">
+                            <div class="card p-fluid">
+                                <div class="p-fluid formgrid grid field">
+                                    <div class="col-12 md:col-12">
+                                        <span class="p-float-label">
+                                            <input pInputText id="codeComptable" style="height: 25px;" type="number" [value]="defaultInputValue+' DT'" [(ngModel)]="article.dernierPrixAchatHt" >
+                                            <label for="codeComptable">D. Prix Fournisseur</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                    <div class="p-fluid p-formgrid grid field">
+                                        <span style="height: 10px"></span>
+                                    </div>
+                                <div class="p-fluid formgrid grid field">
+                                    <div class="col-12 md:col-12">
+
+                                        <span class="p-float-label">
+                                            <input pInputText id="codeComptable" style="height: 25px;" type="text" [(ngModel)]="article.dernierTauxRemise" >
+                                            <label for="codeComptable">D. Remise Fournisseur</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid grid field">
+                                        <span style="height: 100px;"></span>
+                                 </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-3">
+                            <div class="card p-fluid">
+                                <div class="p-fluid formgrid grid field">
+                                    <div class="col-12 md:col-12">
+                                        <span class="p-float-label">
+                                            <input pInputText id="codeComptable" style="height: 25px;" type="text" [(ngModel)]="article.prixAchatHt" >
+                                            <label for="codeComptable">Prix Achat Net HT</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                    <div class="p-fluid p-formgrid grid field">
+                                        <span style="height: 10px"></span>
+                                    </div>
+                                <div class="p-fluid formgrid grid field">
+                                    <div class="col-12 md:col-12">
+                                        <div class="p-inputgroup" style="width:94%">
+                                            <span class="p-float-label">
+                                            <p-autoComplete
+                                                [(ngModel)]="article.codeTva"
+                                                [suggestions]="filteredTvaItems"
+                                                (completeMethod)="searchTvaItem($event)"
+                                                field="name"
+                                                (onBlur)="validateInput()"
+                                                [dropdown]="true"
+                                               >
+                                                <ng-template let-filteredTvaItems pTemplate="item">
+                                                    <div class="dropdown-item">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>{{ filteredTvaItems.id }}</td>
+                                                            <td>{{ filteredTvaItems.name }}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+                                                </ng-template>
+
+                                                <ng-template pTemplate="header" >
+                                                    <div class="dropdown-header" style="position: absolute;z-index: 1;width: 100%;background-color: white;padding: 0.75rem 1.25rem; padding-right: 2.25rem;" >
+                                                    <table style="height: 25px;" >
+                                                        <thead >
+                                                        <tr >
+                                                            <th>Code</th>
+                                                            <th>Taux</th>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
+                                                    </div>
+                                                    <br>
+                                                </ng-template>
+
+                                                </p-autoComplete>
+
+                                                <label for="famille">Taux TVA %</label>
+
+                                            </span>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid grid field">
+                                        <span style="height: 100px;"></span>
+                                 </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </p-tabPanel>
+                <p-tabPanel header="Stock" class="line-height-3 m-0">
+                    <p-table [value]="stocks" [resizableColumns]="true" styleClass="p-datatable-gridlines p-datatable-sm mt-4 mb-4" class="col-md-12 mb-2">
+                        <!-- Header -->
+                        <ng-template pTemplate="header">
+                        <tr>
+                            <th pResizableColumn></th>
+                            <th pResizableColumn>Code Depot</th>
+                            <th pResizableColumn>Libellé</th>
+                             <th pResizableColumn>Quantité Minimale</th>
+                            <th pResizableColumn>Quantité Maximale</th>
+                            <th pResizableColumn>Quantité </th>
+                            <th pResizableColumn>Prix Vente TTC </th>
+
+
+
+
+
+                        </tr>
+                        </ng-template>
+
+                        <!-- Body -->
+                        <ng-template pTemplate="body" let-stock let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="width: 2%">{{ rowIndex + 1 }}</td>
+                            <td style="width:15%" pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+
+                                    <app-look-up-edit-article
+                                    [source]="'depotAchatStock'"
+                                    [title]="'Depôt Achat'"
+                                    [label]="'Depôt Achat'"
+                                    (sourceUpdated)="handleSourceUpdated($event)"
+                                    (articleUpdated)="handleArticleUpdated($event)"
+                                    >
+                                    </app-look-up-edit-article>
+
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                {{ stock.codeDepot }}
+                                </ng-template>
+                            </p-cellEditor>
+                            </td>
+
+                            <td style="width:15%" pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                <input type="text" [readOnly]="true"
+                                     class="input-dataGrid banque-input">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                {{ stock?.libelle }}
+                                </ng-template>
+                            </p-cellEditor>
+                            </td>
+
+                            <td style="width:15%" pEditableColumn>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                    <input type="text" [ngModel]="stock.quaniteMinimale"
+                                         class="input-dataGrid banque-input"  (keydown.enter)="onEditCompleteStock()"
+                                         (keydown.Tab)="onEditCompleteStock()">
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                    {{ stock?.quaniteMinimale }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+
+                            <td style="width:15%" pEditableColumn>
+                                <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                        <input type="text" [ngModel]="stock.quantiteMaximale"
+                                             class="input-dataGrid banque-input" (keydown.enter)="onEditCompleteStock()"
+                                             (keydown.Tab)="onEditCompleteStock()">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                        {{ stock?.quantiteMaximale }}
+                                        </ng-template>
+                                </p-cellEditor>
+                            </td>
+
+                            <td style="width:15%" pEditableColumn>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                            <input type="text" [ngModel]="stock.quantite"
+                                                 class="input-dataGrid banque-input" (keydown.enter)="onEditCompleteStock()"
+                                                 (keydown.Tab)="onEditCompleteStock()">
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                            {{ stock?.quantite}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                            </td>
+
+                            <td style="width:15%" pEditableColumn>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                <input type="text" [ngModel]="stock.prixUnitaireAchat"
+                                                  [disabled]="stock.codeDepot.local"   class="input-dataGrid banque-input" (keydown.enter)="onEditCompleteStock()"
+                                                  (keydown.Tab)="onEditCompleteStock()">
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                {{ stock?.prixUnitaireAchat }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                            </td>
+                        </tr>
+                        </ng-template>
+                        </p-table>
+
+                </p-tabPanel>
+                <p-tabPanel header="Observation" class="line-height-3 m-0">
+                    <div class="p-fluid grid">
+                        <div class="col-12 ">
+                            <div class="card p-fluid">
+                                <p-divider >
+                                    <div class="inline-flex align-items-center">
+                                        <i class="pi pi-file mr-2"></i>
+                                        <b>Observation</b>
+                                    </div>
+                                </p-divider>
+                                <div class="p-formgrid grid">
+                                    <div class="col-12 field">
+                                        <span class="p-float-label ">
+                                            <textarea rows="3" cols="300"  pInputTextarea id="tel" type="text" [(ngModel)]="article.observation"></textarea>
+                                        </span>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p-panel [collapsed]="true" header="Logo" [toggleable]="true" class="line-height-3  ">
+                        <div class="col-12 md:col-8 mt-4">
+
+                            <p-divider >
+                                <div class="inline-flex align-items-center">
+                                    <i class="pi pi-file mr-2"></i>
+                                    <b>Logo Client</b>
+                                </div>
+                            </p-divider>
+                            <div class="card flex justify-content-center">
+                                <p-toast></p-toast>
+                                <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" (onUpload)="onUpload($event)" (onSelect)="onSelect($event)"></p-fileUpload>
+                                <!-- Display the selected image -->
+                                <div *ngIf="selectedImage">
+                                    <img [src]="selectedImage" alt="Selected Image" class="selected-image" />
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </p-panel>
+                </p-tabPanel>
+
+
+			   </p-tabView>
+
+             <ng-template pTemplate="footer">
+                <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text footer enregistrer-button" (click)="save()" ></button>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text footer annuler-button" ></button>
+        </ng-template>
+        </p-dialog>
+    </div>
+</div>
